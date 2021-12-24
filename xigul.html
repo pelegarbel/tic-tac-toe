@@ -1,0 +1,105 @@
+//קובע את הסטייל של הטבלה 
+<style>
+    td{
+        width: 200px;
+        height: 200px;
+        border: solid 3px black;
+        font-size: 150px;
+        text-align: center;
+    }
+    
+    h1{
+        text-align: center;
+        color: aqua;
+
+    }
+    body {
+          background-image: url('marbel.jpg');
+        }
+</style>
+
+<h1>Tic Tac Toe</h1>
+
+// יצירת מערך דו מימדי זה שומר את התוצאות//
+<script>
+    var Totzaot = [["","",""],["","",""],["","",""]];
+    var Tor = 'X';
+
+    //הפונקציה הזו מקבלת את מיקום הלחיצה של בטבלה לפי שורה ועמודה ובעזרת הפקודה של גט אלמנט הוא יודע להציב את המשתנה במקום הנכון 
+    function X(x,y)
+    {
+
+        document.getElementById('rc' + x + y).innerHTML = Tor;
+        Totzaot[x][y] = Tor;
+        Tor = Tor == "X" ? "O" : "X"
+
+        CheckWin()
+        
+    }
+    // הפונקציה הזו בודקת האם קיים רצף נכון של צורות על מנת לבדוק מי ניצח במשחק (בודקת לפי שורה ועמודה בנוסף באלכסון)
+    //בנוסף לאחר הניצחון ניתן לראות כי הוא יעלה התראה של מי ניצח ויאפס את הטבלה פעם נוספת על ידי הפונקציה של איפוס טבלה 
+    function CheckWin()
+    {
+        if(
+            Totzaot[0][0] == 'X' && Totzaot[0][1] == 'X' && Totzaot[0][2] == 'X' ||
+            Totzaot[1][0] == 'X' && Totzaot[1][1] == 'X' && Totzaot[1][2] == 'X' ||
+            Totzaot[2][0] == 'X' && Totzaot[2][1] == 'X' && Totzaot[2][2] == 'X' ||
+            Totzaot[0][0] == 'X' && Totzaot[1][0] == 'X' && Totzaot[2][0] == 'X' ||
+            Totzaot[0][1] == 'X' && Totzaot[1][1] == 'X' && Totzaot[2][1] == 'X' ||
+            Totzaot[0][2] == 'X' && Totzaot[1][2] == 'X' && Totzaot[2][2] == 'X' ||
+            Totzaot[0][0] == 'X' && Totzaot[1][1] == 'X' && Totzaot[2][2] == 'X' ||
+            Totzaot[0][2] == 'X' && Totzaot[1][1] == 'X' && Totzaot[2][0] == 'X' 
+        )
+            {
+                alert("X wins")
+                Tor = 'X';
+                Totzaot = [["","",""],["","",""],["","",""]];
+                IpusTable()
+            }
+
+        if(
+            Totzaot[0][0] == 'O' && Totzaot[0][1] == 'O' && Totzaot[0][2] == 'O' ||
+            Totzaot[1][0] == 'O' && Totzaot[1][1] == 'O' && Totzaot[1][2] == 'O' ||
+            Totzaot[2][0] == 'O' && Totzaot[2][1] == 'O' && Totzaot[2][2] == 'O' ||
+            Totzaot[0][0] == 'O' && Totzaot[1][0] == 'O' && Totzaot[2][0] == 'O' ||
+            Totzaot[0][1] == 'O' && Totzaot[1][1] == 'O' && Totzaot[2][1] == 'O' ||
+            Totzaot[0][2] == 'O' && Totzaot[1][2] == 'O' && Totzaot[2][2] == 'O' ||
+            Totzaot[0][0] == 'O' && Totzaot[1][1] == 'O' && Totzaot[2][2] == 'O' ||
+            Totzaot[0][2] == 'O' && Totzaot[1][1] == 'O' && Totzaot[2][0] == 'O' 
+        )
+        {
+                alert("O wins")
+                Tor = 'X';
+                Totzaot = [["","",""],["","",""],["","",""]];
+                IpusTable()
+            }
+
+    }
+    //כפונקציה זו מאפסת לנו את הטבלה לאחר סיום ההמשחק היא בודקת האם נוצר רצף של אותו אלמנט 3 פעמים ובשורה האחרונה הוא למעשה יבצע את פעולת האיפוס על ידי החלפה של תוכן הטבלה במקום ריק
+    function IpusTable()
+    {
+
+        for(var x = 0 ; x < 3 ; x++)
+            for(var y = 0 ; y < 3 ; y++)
+                document.getElementBId('rc' + x + y).innerHTML = "";
+    }
+</script>
+
+//ונבוסף הפקודה של ה אונקליק מכניסה את האלמנטים לתוך הטבלה  הפקודה הזו יוצרת לנו את הטבלה שבתוכה יכנסו האלמנטים של המשחק אנו מחלקים את הטבלה לפי שורה ועמודה (rc)
+<table>
+    <tr>
+        <td id="rc00" onclick="X(0,0)"></td>
+        <td id="rc01" onclick="X(0,1)"></td>
+        <td id="rc02" onclick="X(0,2)"></td>
+    </tr>
+    <tr>
+        <td id="rc10" onclick="X(1,0)"></td>
+        <td id="rc11" onclick="X(1,1)"></td>
+        <td id="rc12" onclick="X(1,2)"></td>
+    </tr>
+    <tr>
+        <td id="rc20" onclick="X(2,0)"></td>
+        <td id="rc21" onclick="X(2,1)"></td>
+        <td id="rc22" onclick="X(2,2)"></td>
+    </tr>
+</table>
